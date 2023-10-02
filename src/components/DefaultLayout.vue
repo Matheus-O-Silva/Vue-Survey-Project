@@ -142,9 +142,18 @@ import {
 } from "@headlessui/vue";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 import { useStore } from "vuex";
+import { useRouter} from "vue-router"
 
 const store = useStore();
 const user = store.state.user.data;
+const router = useRouter();
+
+function logout(){
+  store.commit('logout');
+  router.push({
+    name: 'Login'
+  })
+}
 
 const navigation = [
   { name: "Dashboard", to: { name: "Dashboard" } },
