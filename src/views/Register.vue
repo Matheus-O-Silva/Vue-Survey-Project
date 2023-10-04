@@ -50,7 +50,7 @@
             </div>
         </form>
 
-        <p class="mt-10 text-center text-sm text-gray-500">
+        <p class="mt-10 text-center text-sm text-gray-500">  
             <p class="mt-10 text-center text-sm text-gray-500">
                 <router-link :to="{name:'Login'}" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign In</router-link>
             </p>
@@ -59,7 +59,6 @@
 </template>
 
 <script setup>
-import {LockClosedIcon} from '@heroicons/vue/solid'
 import store from "../store";
 import {useRouter} from "vue-router";
 const router = useRouter();
@@ -70,12 +69,14 @@ const user = {
     password_confirmation: '',
 }
 
-ev.preventDefault();
-store.dispatch('register',user).then(() => {
-    router.push({
-        name: 'Dashboard'
-    })
-});
+function register(ev) {
+    ev.preventDefault();
+    store.dispatch('register',user).then((res) => {
+        router.push({
+            name: 'Dashboard'
+        })
+    });
+}
 
 </script>
 
