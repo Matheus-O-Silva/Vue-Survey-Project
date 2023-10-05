@@ -25,6 +25,21 @@ const store = createStore({
                     commit("setUser", res);
                     return res;
                 });
+        },
+        login({ commit }, user) {
+            return fetch(`http://localhost:8989/login`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify(user)
+            })
+                .then((res) => res.json())
+                .then((res) => {
+                    commit("setUser", res);
+                    return res;
+                });
         }
     },
     mutations: {
