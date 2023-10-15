@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import  axiosClient  from "../axios";
+import axiosClient from "../axios";
 
 const store = createStore({
     state: {
@@ -16,7 +16,7 @@ const store = createStore({
             return axiosClient.post('/register', user)
                 .then(({ data }) => {
                     commit('setUser', data.user);
-                    //commit('setToken', data.token)
+                    commit('setToken', data.token)
                     return data;
                 })
         },
@@ -24,21 +24,24 @@ const store = createStore({
             return axiosClient.post('/login', user)
                 .then(({ data }) => {
                     commit('setUser', data.user);
-                    //commit('setToken', data.token)
+                    commit('setToken', data.token)
                     return data;
                 })
         },
     },
     mutations: {
         logout: (state) => {
-            state.user.data = {};
             state.user.token = null;
+            state.user.data = {};
+            sessionStorage.removeItem("TOKEN");
         },
-        setUser: (state, userData) => {
-            state.user.token = userData.token;
-            state.user.data = userData.user;
-            sessionStorage.setItem('TOKEN', userData.token);
-        }
+        setUser: (state, user) => {
+            state.user.data = user;
+        },
+        setToken: (state, token) => {
+            state.user.token = token;
+            sessionStorage.setItem('TOKEN', token);
+        },
     },
     modules: {
 
