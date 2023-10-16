@@ -31,7 +31,6 @@
           </div>
           <div class="hidden md:block">
             <div class="ml-4 flex items-center md:ml-6">
-
               <!-- Profile dropdown -->
               <Menu as="div" class="relative ml-3">
                 <div>
@@ -54,14 +53,10 @@
                   <MenuItems
                     class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                   >
-                    <MenuItem
-                      v-slot="{ active }"
-                    >
+                    <MenuItem v-slot="{ active }">
                       <a
                         @click="logout"
-                        :class="[
-                          'block px-4 py-2 text-sm text-gray-700 cursor-pointer',
-                        ]"
+                        :class="['block px-4 py-2 text-sm text-gray-700 cursor-pointer']"
                         >Sign out</a
                       >
                     </MenuItem>
@@ -142,22 +137,24 @@ import {
 } from "@headlessui/vue";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 import { useStore } from "vuex";
-import { useRouter} from "vue-router"
+import { useRouter } from "vue-router";
 
 const store = useStore();
 const user = store.state.user.data;
 const router = useRouter();
 
-function logout(){
-  store.commit('logout');
-  router.push({
-    name: 'Login'
-  })
+function logout() {
+  store.dispatch("logout").then(() => {
+    router.push({
+      name: "Login",
+    });
+  });
 }
+
+store.dispatch("getUser");
 
 const navigation = [
   { name: "Dashboard", to: { name: "Dashboard" } },
   { name: "Surveys", to: { name: "Surveys" } },
 ];
-
 </script>
